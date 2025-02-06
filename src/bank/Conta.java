@@ -3,6 +3,7 @@ package bank;
 import java.util.Locale;
 import java.util.Scanner;
 
+import Excepitions.BusinessExcepetion;
 import bankEstrutura.Account;
 
 public class Conta {
@@ -28,15 +29,13 @@ public class Conta {
 		System.out.print("Informe uma quantia para sacar: ");
 		double amount = sc.nextDouble();
 
-		String error = acc.validateWithdraw(amount);
-
-		if (error != null) {
-			System.out.println(error);
-
-		} else {
+		try {
 
 			acc.withdraw(amount);
 			System.out.printf("Novo saldo: %.2f%n ", acc.getBalance());
+		}
+		catch (BusinessExcepetion e ) {
+			System.out.println(e.getMessage());
 		}
 		sc.close();
 	}

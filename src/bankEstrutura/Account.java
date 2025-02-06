@@ -1,5 +1,7 @@
 package bankEstrutura;
 
+import Excepitions.BusinessExcepetion;
+
 public class Account {
 
 	private Integer number;
@@ -54,18 +56,18 @@ public class Account {
 	}
 
 	public void withdraw(double amount) {
+		validateWithdraw(amount);
 		balance -= amount;
 
 	}
-	
-	public String validateWithdraw(double amount) {
+
+	private void validateWithdraw(double amount) {
 		if (amount > getWithdrawLimit()) {
-			return("Error de saque: A quantidade excede o limite de saque");
+			throw new BusinessExcepetion("Error de saque: A quantidade excede o limite de saque");
 		}
 		if (amount > getBalance()) {
-			return("Erro de saque: Saldo insuficiente");
+			throw new BusinessExcepetion("Erro de saque: Saldo insuficiente");
 		}
-		return ("beto");
 	}
 
 	@Override
